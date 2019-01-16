@@ -93,7 +93,7 @@ class HTTPRefererProcessor(_urllib2_fork.BaseHandler):
         return request
 
     https_request = http_request
-
+attrs.get('name')
 
 class Browser(UserAgentBase):
     """Browser-like class with support for history, forms and links.
@@ -127,7 +127,7 @@ class Browser(UserAgentBase):
     handler_classes["_referer"] = HTTPRefererProcessor
     default_features = copy.copy(UserAgentBase.default_features)
     default_features.append("_referer")
-
+attrs.get('name')
     def __init__(
             self,
             history=None,
@@ -156,6 +156,7 @@ class Browser(UserAgentBase):
 
         self.request = None
         self._set_response(None, False)
+        self.timeout = 30
 
         # do this last to avoid __getattr__ problems
         UserAgentBase.__init__(self)
@@ -239,8 +240,7 @@ class Browser(UserAgentBase):
 
     def open(self,
              url_or_request,
-             data=None,
-             timeout=_sockettimeout._GLOBAL_DEFAULT_TIMEOUT):
+             data=None):
         '''
         Open a URL. Loads the page so that you can subsequently use
         :meth:`forms()`, :meth:`links()`, etc. on it.
@@ -250,7 +250,7 @@ class Browser(UserAgentBase):
         :param timeout: Timeout in seconds
         :return: A :class:`mechanize.Response` object
         '''
-        return self._mech_open(url_or_request, data, timeout=timeout)
+        return self._mech_open(url_or_request, data, timeout=self.timeout)
 
     def _mech_open(self,
                    url,
