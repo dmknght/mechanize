@@ -34,7 +34,8 @@ def parse_control(elem, parent_of, default_type='text'):
         if lt:
             attrs["__label"] = lt
     ctype = attrs.get('type') or default_type
-    return ctype, attrs.get('name'), attrs
+    fname = attrs.get('name') or attrs.get('id')
+    return ctype, fname, attrs
 
 
 def parse_input(elem, parent_of, *a):
